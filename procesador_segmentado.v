@@ -63,6 +63,10 @@ input wire clk;
  input wire reset;
  parameter varCuatro=3'b100;
  
+ wire [9:0] Control;
+ wire [9:0] Controls1;
+ wire [9:0] Controls2;
+ 
  
  memoriaintrucciones memoriainstru(
             .direinstru(direinstrux),
@@ -73,16 +77,26 @@ input wire clk;
  
  control control(.instru(instru[31:26]),
                  .clk(clk),
-                 .RegDest(RegDest),
-				.Saltoincond(Saltoincond),
-                 .SaltoCond(SaltoCond),
-                 .LeerMem(LeerMem),
-                 .MemaReg(MemaReg),
-                 .ALUOp(ALUOp),
-                 .EscrMem(EscrMem),
-                 .FuenteALU(FuenteALU),
-                 .EscrReg(EscrReg)          
+                 .Control(Control)         
                  );
+control1 control1(.Control(Control),
+                .clk(clk),
+                .RegDest(RegDest),
+                .ALUOp(ALUOp),
+                .FuenteALU(FuenteALU),
+                .Controls1(Controls1)      
+                );
+control2 control2(.Control(Controls1),
+                  .clk(clk),
+                  .SaltoCond(SaltoCond),
+                  .EscrMem(EscrMem),
+                  .Controls2(Controls2)         
+                  );
+control3 control3(.Control(Controls2),
+                  .clk(clk),
+                  .MemaReg(MemaReg),
+                  .EscrReg(EscrReg)        
+                  );
  
  bankregister registros(.RegLe1(instru[25:21]),
                         .RegLe2(instru[20:16]),

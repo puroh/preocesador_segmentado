@@ -20,21 +20,29 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control(Saltoincond,instru,clk,RegDest,SaltoCond,LeerMem,MemaReg,ALUOp,EscrMem,FuenteALU,EscrReg);
+module control(instru,clk,Control);//Saltoincond,RegDest,SaltoCond,LeerMem,MemaReg,ALUOp,EscrMem,FuenteALU,EscrReg);
 
 input [5:0]instru;
 input clk;
-output wire RegDest;
-output wire SaltoCond;
-output wire LeerMem;
-output wire MemaReg;
-output wire [1:0]ALUOp;
-output wire EscrMem;
-output wire FuenteALU;
-output wire EscrReg;
-output wire Saltoincond;
+//output wire RegDest;
+//output wire SaltoCond;
+//output wire LeerMem;
+//output wire MemaReg;
+//output wire [1:0]ALUOp;
+//output wire EscrMem;
+//output wire FuenteALU;
+//output wire EscrReg;
+//output wire Saltoincond;
+
+output wire [9:0] Control;
 
 reg [9:0]aux;
+
+
+// control1 control(.aux(aux),
+//                .clk(clk), 
+//                .Control(Control)       
+//                );
 
 
 always @ (*)
@@ -50,14 +58,19 @@ begin
     endcase
 
 end
-assign Saltoincond  = aux[9];
-assign RegDest      = aux[8];
-assign FuenteALU    = aux[7];//
-assign MemaReg      = aux[6];
-assign EscrReg      = aux[5];
-assign LeerMem      = aux[4];//
-assign EscrMem      = aux[3];
-assign SaltoCond    = aux[2];
-assign ALUOp        = aux[1:0];
+
+assign Control = aux;
+
+//assign Saltoincond  = Control[9];
+//assign RegDest      = Control[8];
+//assign FuenteALU    = Control[7];//
+//assign MemaReg      = Control[6];
+//assign EscrReg      = Control[5];
+//assign LeerMem      = Control[4];//
+//assign EscrMem      = Control[3];
+//assign SaltoCond    = Control[2];
+//assign ALUOp        = Control[1:0];
+
+
 
 endmodule
