@@ -20,15 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control1(clk,Control,RegDest,ALUOp,FuenteALU,Controls1);
+module control1(clk,Control,RegDest,ALUOp,FuenteALU,Controls1,Saltoincond);//,LeerMem);
 
     input [9:0] Control;
     input  clk;
     output reg [9:0] Controls1;
         
     output reg RegDest;
-    //output wire SaltoCond;
-    //output wire LeerMem;
+    output reg Saltoincond;
+    //output reg LeerMem;
     //output wire MemaReg;
     output reg [1:0]ALUOp;
     //output wire EscrMem;
@@ -42,7 +42,7 @@ always   @(posedge clk)
 begin
 
 Controls1 = Control;   
-//assign Saltoincond  = Control[9];
+Saltoincond  = Control[9];
 RegDest      = Control[8];
 FuenteALU    = Control[7];//
 //assign MemaReg      = Control[6];
@@ -50,6 +50,7 @@ FuenteALU    = Control[7];//
 //assign LeerMem      = Control[4];//
 //assign EscrMem      = Control[3];
 //assign SaltoCond    = Control[2];
+//LeerMem      = Control[4];
 ALUOp        = Control[1:0];
     
 

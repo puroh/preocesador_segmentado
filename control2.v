@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control2(Control,clk,SaltoCond,EscrMem,Controls2);
+module control2(Control,clk,SaltoCond,EscrMem,Controls2,LeerMem);
 
     input wire [9:0] Control;
     input clk;
@@ -28,7 +28,7 @@ module control2(Control,clk,SaltoCond,EscrMem,Controls2);
  
     //output wire RegDest;
     output reg SaltoCond;
-    //output wire LeerMem;
+    output reg LeerMem;
     //output wire MemaReg;
     //output wire [1:0]ALUOp;
     output reg EscrMem;
@@ -48,10 +48,10 @@ Controls2 = Control;
 //assign FuenteALU    = Control[7];//
 //assign MemaReg      = Control[6];
 //assign EscrReg      = Control[5];
-//assign LeerMem      = Control[4];//
+//
 EscrMem      = Control[3];
 SaltoCond    = Control[2];
 //assign ALUOp        = Control[1:0];
-
+LeerMem      = Control[4];
 end     
 endmodule

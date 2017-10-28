@@ -47,7 +47,7 @@ begin
 MemaReg      = Control[6];
 //assign EscrReg      = Control[5];
 //assign LeerMem      = Control[4];//
-EscrReg      = Control[3];
+EscrReg      = Control[5];
 //assign SaltoCond    = Control[2];
 //assign ALUOp        = Control[1:0];    
 

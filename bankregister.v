@@ -29,16 +29,21 @@ module bankregister(
     input [31:0] datain,
     output wire [31:0] data1,
     output wire [31:0] data2,
+    output wire  flagBR,
     input reset
     );
     
 reg [31:0] register [31:0];
 wire [31:0] aux;
+
 assign  data1 = register[RegLe1];
 assign  data2 = register[RegLe2];
+assign  flagBR = clk ? 1'b1 : 1'b0;
 
 always @(posedge clk )
     begin 
+
+        
         if(reset==1)
         begin
 		//data1=32'b0000_0000_0000_0000_0000_0000_0000_0000;

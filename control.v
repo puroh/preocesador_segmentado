@@ -34,7 +34,7 @@ input clk;
 //output wire EscrReg;
 //output wire Saltoincond;
 
-output wire [9:0] Control;
+output reg [9:0] Control;
 
 reg [9:0]aux;
 
@@ -59,7 +59,11 @@ begin
 
 end
 
-assign Control = aux;
+
+always @(*)
+begin
+ Control = aux;
+end
 
 //assign Saltoincond  = Control[9];
 //assign RegDest      = Control[8];
