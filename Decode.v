@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Decode(clk,data1R,data2R,data1D,data2D,instru2016,instru2016D,instru1511,instru1511D,oinstru,oinstruD,sum2sumOF,sum2sumOF_D);
+module Decode(clk,data1R,data2R,data1D,data2D,instru2016,instru2016D,instru1511,instru1511D,oinstru,oinstruD,sum2sumOF,sum2sumOF_D,FDecode);
         
         input clk;
         input [31:0] data1R;
@@ -36,6 +36,9 @@ module Decode(clk,data1R,data2R,data1D,data2D,instru2016,instru2016D,instru1511,
         output reg [4:0]  instru1511D;
         output reg [31:0] oinstruD;
         output reg [31:0] sum2sumOF_D;
+        output wire FDecode;
+        
+assign FDecode = clk ? 1'b1 : 1'b0;
         
 always @(posedge clk)
   begin

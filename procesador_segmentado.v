@@ -67,6 +67,12 @@ input wire clk;
  wire [9:0] Controls1;
  wire [9:0] Controls2;
  
+ //Señales de control
+ wire FFetch;
+ wire FDecode;
+ wire FExecute;
+ wire FMemory;
+ 
  //Fetch
  wire [31:0] instruD;
  wire [31:0] sum2sumOF;
@@ -106,12 +112,16 @@ wire [4:0] RegEscr1E_M;
  
  control control(.instru(instruD[31:26]),
                  .clk(clk),
-                 .Control(Control) //Salida        
+                 .Control(Control), //Salida
+                 .FFetch(FFetch),
+                 .FDecode(FDecode),
+                 .FExecute(FExecute),
+                 .FMemory(FMemory)       
                  );
 
  bankregister registros(.RegLe1(instruD[25:21]),
                         .RegLe2(instruD[20:16]),
-                        .RegEscr(RegEscr1), //mux
+                        .RegEscr(RegEscr1), //mux //OJO
                         .EscrReg(EscrReg),
                         .clk(clk),
                         .datain(dataEscr), // Mux
@@ -131,7 +141,7 @@ wire [4:0] RegEscr1E_M;
            .clk(clk),
            .oCarry(oCarry),
            .oZero(oZero),
-           .out(out)   
+           .out(out)  
            );
  
  memoria_datos datos(.clk(clk),
@@ -145,7 +155,7 @@ wire [4:0] RegEscr1E_M;
             .SaltoCond(SaltoCond),
 			.Saltoincond(Saltoincond),
             .extSigno(oinstruD),
-            .oZero(oZero),
+            .oZero(oZeroD),
             .direinstru(direinstrux),
             .clk(clk),   
             .reset(reset),
@@ -181,12 +191,14 @@ control2 control2(.Control(Controls1),
                   .SaltoCond(SaltoCond),
                   .EscrMem(EscrMem),
                   .Controls2(Controls2),
-                  .LeerMem(LeerMem)        
+                  .LeerMem(LeerMem),
+                  .reset(reset)        
                   );
 control3 control3(.Control(Controls2),
                   .clk(clk),
                   .MemaReg(MemaReg),
-                  .EscrReg(EscrReg)        
+                  .EscrReg(EscrReg),
+                  .reset(reset)        
                   );
  
     //Retrasos de señales;
@@ -195,7 +207,8 @@ Fetch Fetch(.clk(clk),
             .instru(instru),
             .instruD(instruD),
             .sum2sumIF(sum2sumIF),
-            .sum2sumOF(sum2sumOF)
+            .sum2sumOF(sum2sumOF),
+            .FFetch(FFetch)
             );
             
 Decode Decode(.clk(clk),
@@ -210,7 +223,8 @@ Decode Decode(.clk(clk),
               .oinstru(oinstru),
               .oinstruD(oinstruD),
               .sum2sumOF(sum2sumOF),
-              .sum2sumOF_D(sum2sumOF_D)                           
+              .sum2sumOF_D(sum2sumOF_D),
+              .FDecode(FDecode)                           
              );
              
  Execute Execute(.clk(clk),
@@ -223,7 +237,9 @@ Decode Decode(.clk(clk),
                  .RegEscr1(RegEscr1),
                  .RegEscr1E(RegEscr1E),
                  .salSum2out(salSum2out),
-                 .salSum2E(salSum2E)
+                 .salSum2E(salSum2E),
+                 .FExecute(FExecute),
+                 .reset(reset)
                  );
 Memory Memory(.clk(clk),
               .outE(outE),
@@ -231,7 +247,8 @@ Memory Memory(.clk(clk),
               .Dataout(Dataout),
               .DataoutM(DataoutM),
               .RegEscr1E(RegEscr1E),
-              .RegEscr1E_M(RegEscr1E_M)
+              .RegEscr1E_M(RegEscr1E_M),
+              .FMemory(FMemory)
               );
     
 

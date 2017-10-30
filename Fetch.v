@@ -20,14 +20,17 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Fetch(clk,instru,instruD,sum2sumIF,sum2sumOF);
+module Fetch(clk,instru,instruD,sum2sumIF,sum2sumOF,FFetch);
        
        input clk;
        input [31:0] instru; 
        input [31:0] sum2sumIF;
        output reg [31:0] instruD;
        output reg [31:0] sum2sumOF;
+       output wire FFetch;
   
+
+assign FFetch = clk? 1'b1:1'b0; 
 
 always @(posedge clk)
 begin

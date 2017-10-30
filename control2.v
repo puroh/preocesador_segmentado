@@ -20,11 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control2(Control,clk,SaltoCond,EscrMem,Controls2,LeerMem);
+module control2(reset,Control,clk,SaltoCond,EscrMem,Controls2,LeerMem);
 
     input wire [9:0] Control;
     input clk;
     output reg [9:0] Controls2;
+    input reset;
  
     //output wire RegDest;
     output reg SaltoCond;
@@ -36,12 +37,26 @@ module control2(Control,clk,SaltoCond,EscrMem,Controls2,LeerMem);
     //output wire EscrReg;
     //output wire Saltoincond;
    
+   wire SaltoConda;
+	
 
+assign SaltoConda = 1'b0;
 
 
 always   @(posedge clk)
 begin
 
+    if (Control[2] == 1'b1)//Hay que mirar aqui
+        begin
+        SaltoCond = 1'b1;
+       // $display ("Valor variable control[2] %h" , Control[2]);
+        end
+     else
+        SaltoCond=SaltoConda;
+end
+//SaltoCond = SaltoConda;
+always   @(posedge clk)
+begin
 Controls2 = Control;
 //assign Saltoincond  = Control[9];
 //assign RegDest      = Control[8];
@@ -50,7 +65,7 @@ Controls2 = Control;
 //assign EscrReg      = Control[5];
 //
 EscrMem      = Control[3];
-SaltoCond    = Control[2];
+//SaltoCond    = SaltoConda;//Control[2];
 //assign ALUOp        = Control[1:0];
 LeerMem      = Control[4];
 end     

@@ -1,7 +1,8 @@
-module alu32(data1, data2 ,clk, ctrl, oCarry,oZero, out);  
+module alu32(reset,data1, data2 ,clk, ctrl, oCarry,oZero, out);  
   
 input [31:0] data1;
 input [31:0] data2;
+input reset;
 input [2:0] ctrl;
 input clk;
 output reg oCarry;
@@ -9,7 +10,13 @@ output reg oZero;
 output reg [31:0] out;
 
 always@ (*)
+
     begin 
+    if (reset == 1)
+        oZero = 1'b0;
+    else
+        oZero=oZero;
+        
         case(ctrl)
             3'b010: {oCarry ,out} = data1+data2;
             3'b110: begin {oCarry, out} = data1-data2;

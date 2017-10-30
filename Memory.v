@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Memory(clk,outE,outE_M,Dataout,DataoutM,RegEscr1E,RegEscr1E_M);
+module Memory(clk,outE,outE_M,Dataout,DataoutM,RegEscr1E,RegEscr1E_M,FMemory);
 
     input clk;
     input [31:0] outE;
@@ -30,6 +30,9 @@ module Memory(clk,outE,outE_M,Dataout,DataoutM,RegEscr1E,RegEscr1E_M);
     output reg [31:0] outE_M;
     output reg [31:0] DataoutM;
     output reg [4:0] RegEscr1E_M;
+    output wire FMemory;
+    
+assign FMemory = clk ? 1'b1:1'b0;
     
  always @ (posedge clk)
     begin

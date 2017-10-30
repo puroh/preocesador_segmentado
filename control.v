@@ -20,10 +20,15 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control(instru,clk,Control);//Saltoincond,RegDest,SaltoCond,LeerMem,MemaReg,ALUOp,EscrMem,FuenteALU,EscrReg);
+module control(instru,clk,Control,FFetch,FDecode,FExecute,FMemory);//Saltoincond,RegDest,SaltoCond,LeerMem,MemaReg,ALUOp,EscrMem,FuenteALU,EscrReg);
 
 input [5:0]instru;
 input clk;
+input FFetch;
+input FDecode;
+input FExecute;
+input FMemory;
+
 //output wire RegDest;
 //output wire SaltoCond;
 //output wire LeerMem;
@@ -36,13 +41,14 @@ input clk;
 
 output reg [9:0] Control;
 
-reg [9:0]aux;
-
+reg [9:0] aux;
+wire [3:0] auxControl;
 
 // control1 control(.aux(aux),
 //                .clk(clk), 
 //                .Control(Control)       
 //                );
+
 
 
 always @ (*)
@@ -59,10 +65,15 @@ begin
 
 end
 
+assign auxControl = {FFetch,FDecode,FExecute,FMemory};
 
 always @(*)
 begin
- Control = aux;
+ if(auxControl == 4'b1111)
+    Control = aux;
+ else
+    Control = aux;
+    
 end
 
 //assign Saltoincond  = Control[9];

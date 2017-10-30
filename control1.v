@@ -20,10 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control1(clk,Control,RegDest,ALUOp,FuenteALU,Controls1,Saltoincond);//,LeerMem);
+module control1(reset,clk,Control,RegDest,ALUOp,FuenteALU,Controls1,Saltoincond);//,LeerMem);
 
     input [9:0] Control;
     input  clk;
+    input reset;
     output reg [9:0] Controls1;
         
     output reg RegDest;

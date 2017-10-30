@@ -20,10 +20,11 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module control3(Control,clk,MemaReg,EscrReg);
+module control3(reset,Control,clk,MemaReg,EscrReg);
 
     input wire [9:0] Control;
     input clk;
+    input reset;
     
     //output wire RegDest;
     //output wire SaltoCond;
@@ -40,7 +41,16 @@ module control3(Control,clk,MemaReg,EscrReg);
 
 always   @(posedge clk)
 begin
-    
+if (reset == 1)
+    begin
+        //MemaReg = 1'b0;
+        //EscrReg = 1'b0;
+    end
+else 
+    begin
+        //MemaReg = MemaReg;
+        //EscrReg = MemaReg;
+    end
 //assign Saltoincond  = Control[9];
 //assign RegDest      = Control[8];
 //assign FuenteALU    = Control[7];//
